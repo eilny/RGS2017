@@ -4,6 +4,9 @@ GAME NAME HERE:
 File: PLATFORM --'Class'/Table for individual platforms
 ]]--
 
+--import player for player collision detection
+local Player = require "player"
+
 local Platform = {}
 Platform.__index = Platform 
 
@@ -53,6 +56,11 @@ function Platform:create(pos_x, pos_y, wid, ht)
 	end
 	
 	]]--
+	function platform:collision_player(player)
+		if player.x 
+	
+	end
+
 end
 
 
