@@ -26,7 +26,9 @@ function Player:create(num, image)
 	player.width, player.height = player.img:getDimensions()
 	
 	--physics values
-	player.ground = player.y -- what the player considers as the ground (could be changed to simply be determined by the platforms/stage)
+	player.ground = player.y
+    -- what the player considers as the ground 
+    -- could be changed to simply be determined by the platforms/stage
 
 	player.mov_spd = 200 -- default
 	player.jump_spd = 0 -- starting jump spd (y_velocity)
@@ -43,10 +45,14 @@ function Player:create(num, image)
 	--checks if player is moving -- separate from jumping function in case of key conflicts == no diagonal jumping
 	--See if there is a way to make more adaptable to moving on a platform
 	function player:move()
+        if player.on_platform == false then
+            return
+        end
+
 		if player.p == 1 then
 			if love.keyboard.isDown('a') then
 				player.x = player.x - player.mov_spd
-			elseif love.keyboard.isDown('w') then
+			elseif love.keyboard.isDown('d') then
 				player.x = player.x + player.mov_spd
 			end	
 		elseif player.p == 2 then
@@ -60,9 +66,17 @@ function Player:create(num, image)
 	--Jumping
 	--See comment for moving (I want to make it relative to platform position)
 	function player:jump(dt)
+        if player.on_platform == false then
+            return
+        end
+
 		if player.jump_spd == 0 then 
 			player.jump_spd = player.jump_hgt
 		end
+        -- more realistic physics - can't change midair?
+        -- need to wait for collision and then can move again
+        -- OORRRR in move can require to be on platform to go left/right
+        -- also should be on platform to jump - can't jump on air
 	end
 	
 	
