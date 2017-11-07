@@ -34,12 +34,11 @@ function Stage:create()
 		end 
 	end
 	
-	-- function stage:prt_plat()
-		-- for plat in platfm do
-			-- love.graphics.printf("x: "
-		-- end
-
-	-- end
+	function stage:plyer_coll(player)
+		for i = 1, #platfm do 
+			platfm[i]:collision_player(player)
+		end
+	end
 	
 	--return local variable
 	return stage
