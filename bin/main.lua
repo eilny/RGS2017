@@ -5,9 +5,22 @@ Objective: Last Survivor
 File: Main--callback functions
 ]]--
 
+--[[
+imported files
+local Stage = require "stage"
+local Player = require "player"
+]]--
+
+
 --Variable(tables)
 platform = {}
 player = {}
+
+
+--Useful Global Variables
+screen_width = love.graphics.getWidth()
+screen_height = love.graphics.getHeight()
+
 
 --remove after testing
 pressed = 'n/a' -- reads what key is pressed
@@ -18,7 +31,7 @@ function love.load()
 	love.window.setMode(1200, 700)
 	
 	platform.width = love.graphics.getWidth() / 3 --size of window width
-	platform.height = love.graphics.getHeight() / 3-- size of window height
+	platform.height = love.graphics.getHeight() / 4-- size of window height
 	
 	platform.x = 100
 	platform.y = platform.height + (platform.height /2)
@@ -43,15 +56,16 @@ function love.load()
 end
 
 function love.update(dt)
-
+	
 	-- checks if player is on platform
-	if player.x + .9*player.width >= platform.x and player.x + .1*player.width <= platform.x + platform.width then
+	if player.x + .9*player.width >= platform.x and player.x + .1*player.width <= platform.x + platform.width and player.y <= platform.y  then
 		player.ground = platform.y
 		player.on_ground = true
 	else
 		player.ground = love.graphics.getHeight()
 		player.on_ground = false
 	end
+	
 	
 	--key detection
 	if love.keyboard.isDown('d') then
@@ -79,6 +93,11 @@ function love.update(dt)
 		player.y_velocity = 0
 		player.y = player.ground
 	end
+	--console prints
+	if player.ground ~= player.y then 
+		print("Player ground: "..player.ground)
+	end
+	--console prints end
 end
 
 function love.draw()
@@ -87,6 +106,9 @@ function love.draw()
 	love.graphics.rectangle('fill', platform.x, platform.y, platform.width, platform.height)
 	-- draws player
 	love.graphics.draw(player.img, player.x, player.y, 0, 1, 1, 0, 32)
+	
+	
+	--print functions to read positions and keys
 	love.graphics.printf("Pressed: "..pressed,900, 100, 500, center)
 	love.graphics.printf("Player.x: "..player.x,900, 115, 500, center)
 	love.graphics.printf("Player.y: "..player.y,900, 130, 500, center)
@@ -95,10 +117,12 @@ function love.draw()
 	love.graphics.printf("Platform.y: "..platform.y,900, 175, 500, center)
 end
 
+--test functions
 function love.keypressed(key)
 	pressed = key
 end
 
+--test functions
 function love.keyreleased(key) 
 	pressed = 'n/a'
 
