@@ -67,6 +67,8 @@ function Player:create(num, image)
 	
 	
 	
+	
+	
 end
 
 

@@ -18,6 +18,7 @@ function Platform:create(pos_x, pos_y, wid, ht)
 	platform.y = pos_y
 	platform.width = wid
 	platform.height = ht
+	platform.on_screen = true
 	--[[ UNDETERMINED VARIABLES (MAY BE IMPLEMENTED OR DELETED)
 		(Variable assignments may be needed in parameters)
 	--Mainly used for drawing
@@ -33,9 +34,9 @@ function Platform:create(pos_x, pos_y, wid, ht)
 		--love.graphics.draw(platform.img, platform.x, platform.y, platform.rotation, platform.scale_x, platform.scale_y) --Will finish parameters if needed
 	end
 	
-	function platform:drop(x_spd, y_spd)
-		platform.x = platform.x + x_spd
-		platform.y = platform.y + y_spd
+	function platform:drop(x_spd, y_spd, dt)
+		platform.x = platform.x + (x_spd*dt)
+		platform.y = platform.y + (y_spd*dt)
 	end
 	
 	--[[more functions can go here
@@ -57,9 +58,15 @@ function Platform:create(pos_x, pos_y, wid, ht)
 	
 	]]--
 	function platform:collision_player(player)
-		if player.x 
-	
+		if player.x + .9*player.width >= platform.x and player.x + .1*player.width <= platform.x + platform.width and player.y <= platform.y then
+			player.ground = platform.y
+			player.on_platform = true
+		else
+			player.ground = player.y
+			player.on_platform = false
+		end
 	end
+	
 
 end
 
