@@ -11,25 +11,26 @@ local Platform = {}
 Platform.__index = Platform 
 
 
-function Platform:create(pos_x, pos_y, wid, ht)
+function Platform:create(img_file, pos_x, pos_y)
 	local platform = {}
+	
+	platform.img = love.graphics.newImage("platform")
 	
 	platform.x = pos_x
 	platform.y = pos_y
-	platform.width = wid
-	platform.height = ht
+	platform.width, platform.height = platform.img:getDimensions()
 	platform.on_screen = true
-	--[[ UNDETERMINED VARIABLES (MAY BE IMPLEMENTED OR DELETED)
-		(Variable assignments may be needed in parameters)
+	-- UNDETERMINED VARIABLES (MAY BE IMPLEMENTED OR DELETED)
+		--(Variable assignments may be needed in parameters)
 	--Mainly used for drawing
 	platform.rotation = rot 
 	platform.scale_x = x_size
 	platform.scale_y = y_size
-	platform.img = love.graphics.newImage("platform")
+	
 	--Mainly used for physics
 	platform.spd_x = 0 -- CAN DELETE
 	platform.spd_y = 0 -- CAN DELETE
-	]]--
+	--]]--
 	function platform:draw()
 		--love.graphics.draw(platform.img, platform.x, platform.y, platform.rotation, platform.scale_x, platform.scale_y) --Will finish parameters if needed
 	end
@@ -39,7 +40,7 @@ function Platform:create(pos_x, pos_y, wid, ht)
 		platform.y = platform.y + (y_spd*dt)
 	end
 	
-	--[[more functions can go here
+	--more functions can go here
 	function platform:scale(x, y)
 		platform.scale_x = platform.scale_x + x
 		platform.scale_y = platform.scale_y + y
@@ -56,7 +57,7 @@ function Platform:create(pos_x, pos_y, wid, ht)
 		end
 	end
 	
-	]]--
+	--]]--
 	function platform:collision_player(player)
 		if player.x + .9*player.width >= platform.x and player.x + .1*player.width <= platform.x + platform.width and player.y <= platform.y then
 			player.ground = platform.y
@@ -66,6 +67,8 @@ function Platform:create(pos_x, pos_y, wid, ht)
 			player.on_platform = false
 		end
 	end
+	
+	function
 	
 
 end
