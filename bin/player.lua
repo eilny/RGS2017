@@ -12,7 +12,7 @@ Player.__index = Player
 
 function Player:create(num, image)
 	local player = {}
-	--will add variables to determine 1st or 2nd player.
+	
 	player.p = num -- determines whether to set to player 1 controls or player 2 controls. 
 	
 	-- MIGHT BE REMOVED
@@ -80,8 +80,8 @@ function Player:create(num, image)
 	end
 	
 	
-	
-	
+	-- returning local variable
+	return player
 	
 end
 

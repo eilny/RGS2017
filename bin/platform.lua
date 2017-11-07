@@ -14,7 +14,7 @@ Platform.__index = Platform
 function Platform:create(img_file, pos_x, pos_y)
 	local platform = {}
 	
-	platform.img = love.graphics.newImage("platform")
+	platform.img = love.graphics.newImage(img_file)
 	
 	platform.x = pos_x
 	platform.y = pos_y
@@ -32,7 +32,7 @@ function Platform:create(img_file, pos_x, pos_y)
 	platform.spd_y = 0 -- CAN DELETE
 	--]]--
 	function platform:draw()
-		--love.graphics.draw(platform.img, platform.x, platform.y, platform.rotation, platform.scale_x, platform.scale_y) --Will finish parameters if needed
+		love.graphics.draw(platform.img, platform.x, platform.y, platform.rotation, platform.scale_x, platform.scale_y) --Will finish parameters if needed
 	end
 	
 	function platform:drop(x_spd, y_spd, dt)
@@ -47,8 +47,7 @@ function Platform:create(img_file, pos_x, pos_y)
 	end 
 	
 	function platform:rotate(degree, direction)  -- may add speed for rotation
-		change = 0
-		for change, degree do
+		for i = 0, degree do
 			if direction == "cw" then 
 				platform.rotation = platform.rotation + 1
 			elseif direction == "ccw" then
@@ -68,8 +67,12 @@ function Platform:create(img_file, pos_x, pos_y)
 		end
 	end
 	
-	function
+	--function
 	
+	
+	
+	--return local variable
+	return platform
 
 end
 

@@ -7,15 +7,15 @@ File: Main--callback functions
 
 --[[
 imported files
-local Stage = require "stage"
+
 local Player = require "player"
 ]]--
-
+local Stage = require "stage"
 
 --Variable(tables)
 platform = {}
 player = {}
-
+stage = Stage:create()
 
 --Useful Global Variables
 screen_width = love.graphics.getWidth()
@@ -53,6 +53,11 @@ function love.load()
 	
 	player.jump_height = -300
 	player.gravity = -500
+	
+	--Stage class test--
+	stage:spawning_plat("platform.png")
+	
+	
 end
 
 function love.update(dt)
@@ -98,6 +103,12 @@ function love.update(dt)
 		print("Player ground: "..player.ground)
 	end
 	--console prints end
+	
+	--playing with the classes (can be removed if needed --just testing code--)
+	stage:draw()
+	
+	
+	
 end
 
 function love.draw()
@@ -108,6 +119,10 @@ function love.draw()
 	love.graphics.draw(player.img, player.x, player.y, 0, 1, 1, 0, 32)
 	
 	
+	--Class drawing functions
+	stage:draw()
+	
+	
 	--print functions to read positions and keys
 	love.graphics.printf("Pressed: "..pressed,900, 100, 500, center)
 	love.graphics.printf("Player.x: "..player.x,900, 115, 500, center)
@@ -115,6 +130,8 @@ function love.draw()
 	love.graphics.printf("Player.y_velocity: "..player.y_velocity,900, 145, 500, center)
 	love.graphics.printf("Platform.x: "..platform.x,900, 160, 500, center)
 	love.graphics.printf("Platform.y: "..platform.y,900, 175, 500, center)
+	
+	
 end
 
 --test functions
