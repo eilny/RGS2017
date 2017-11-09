@@ -22,10 +22,19 @@ function Stage:create()
 	
 	stage.rot = 0
 	stage.scale = 0
-	
-	function stage:spawning_plat(img)
-		platfm[1] = Platform:create(img, (g_Width / 6), (3*g_Height /4))
-		platfm[2] = Platform:create(img, ((5*g_Width) /6), ((3*g_Height) / 4))
+	--will rework this function for easier manipulation
+	function stage:spawning_plat(img, player1)
+		platfm[1] = Platform:create(img, (g_Width / 8), (g_Height /4))
+		platfm[2] = Platform:create(img, ((g_Width) /2) , ((g_Height) / 4))
+		-- if player.p == 1 then 
+			-- platfm[1] = Platform:create(img, (g_Width / 8), (g_Height /4))
+		-- elseif player.p == 2 then 
+			-- platfm[2] = Platform:create(img, ((g_Width) /2) , ((g_Height) / 4))
+		-- end
+		-- if platfm == nil then
+			-- platfm[1] = 
+		-- end 
+		
 	end
 	
 	function stage:draw()
@@ -34,10 +43,11 @@ function Stage:create()
 		end 
 	end
 	
-	function stage:plyer_coll(player)
+	function stage:colliders(player)
 		for i = 1, #platfm do 
-			platfm[i]:collision_player(player)
+			platfm[i]:coll_player(player)
 		end
+		--player:plat_coll(platfm)
 	end
 	
 	--return local variable

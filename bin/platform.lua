@@ -24,8 +24,8 @@ function Platform:create(img_file, pos_x, pos_y)
 		--(Variable assignments may be needed in parameters)
 	--Mainly used for drawing
 	platform.rotation = rot 
-	platform.scale_x = x_size
-	platform.scale_y = y_size
+	platform.scale_x = 1
+	platform.scale_y = 1
 	
 	--Mainly used for physics
 	platform.spd_x = 0 -- CAN DELETE
@@ -57,7 +57,7 @@ function Platform:create(img_file, pos_x, pos_y)
 	end
 	
 	--]]--
-	function platform:collision_player(player)
+	function platform:coll_player(player)
 		if player.x + .9*player.width >= platform.x and player.x + .1*player.width <= platform.x + platform.width and player.y <= platform.y then
 			player.ground = platform.y
 			player.on_platform = true
