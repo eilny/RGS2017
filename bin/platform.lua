@@ -62,7 +62,7 @@ function Platform:create(img_file, pos_x, pos_y)
 			player.ground = platform.y
 			player.on_platform = true
 		else
-			player.ground = player.y
+			player.ground = love.graphics.getHeight()
 			player.on_platform = false
 		end
 	end

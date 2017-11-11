@@ -28,7 +28,6 @@ pressed = 'n/a' -- reads what key is pressed
 --sets window size, imgs, and "classes"
 function love.load()
 	love.window.setTitle("GAME NAME")
-	--love.window.setMode(1200, 700) -- moved to conf.lua
 	
 	
 	-- --player stuff
@@ -65,13 +64,6 @@ function love.update(dt)
 	-- end
 	
 	
-	-- --key detection
-	-- if love.keyboard.isDown('d') then
-	-- --should add borders if needed
-		-- player.x = player.x + (player.speed * dt)
-	-- elseif love.keyboard.isDown('a') then
-		-- player.x = player.x - (player.speed * dt)
-	-- end
 	-- --jump key
 	-- if love.keyboard.isDown('w')then
 		-- if player.y_velocity == 0 then
@@ -98,10 +90,13 @@ function love.update(dt)
 	-- --console prints end
 	
 	--playing with the classes (can be removed if needed --just testing code--)
-	stage:colliders(player1)
-	player1:move(dt)
-	player2:move(dt)
+	player1:control(dt)
+	player2:control(dt)
+	player1:physics(dt)
+	player2:physics(dt)
 	
+	--Collision detection
+	stage:collision(player1, player2)
 end
 
 function love.draw()
@@ -113,18 +108,22 @@ function love.draw()
 	player2:draw()
 	
 	--print functions to read positions and keys
-	love.graphics.printf("Pressed: "..pressed,900, 50, 500, center)
-	love.graphics.printf("Player1.x: "..player1.x, 900, 315, 500, center)
-	love.graphics.printf("Player1.y: "..player1.y, 900, 330, 500, center)	
-	love.graphics.printf("Player2.x: "..player2.x, 900, 345, 500, center)
-	love.graphics.printf("Player2.y: "..player2.y, 900, 360, 500, center)
+	love.graphics.printf("Pressed: "..pressed, 900, 50, 500, center)
+	love.graphics.printf("Player1.x: "..player1.x, 900, 65, 500, center)
+	love.graphics.printf("Player1.y: "..player1.y, 900, 80, 500, center)	
+	love.graphics.printf("Player2.x: "..player2.x, 900, 95, 500, center)
+	love.graphics.printf("Player2.y: "..player2.y, 900, 110, 500, center)
 	
 	
 end
 
+
 --test functions
 function love.keypressed(key)
 	pressed = key
+	if key == 'escape' then 
+		love.event.quit()
+	end
 end
 
 --test functions

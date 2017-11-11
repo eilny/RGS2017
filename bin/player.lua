@@ -27,8 +27,8 @@ function Player:create(num, img_file)
 	
 	
 	-- MIGHT BE REMOVED
-	player.x = (g_Width / 3)   
-	player.y = (g_Height /4) 
+	player.x = (g_Width / 4)   
+	player.y = (g_Height /2) 
 	player.rot = 0 -- default
 	player.scale_x = 1
 	player.scale_y = 1
@@ -65,7 +65,7 @@ function Player:create(num, img_file)
 	
 	--checks if player is moving -- separate from jumping function in case of key conflicts == no diagonal jumping
 	--See if there is a way to make more adaptable to moving on a platform
-	function player:move(dt)
+	function player:control(dt)
         -- if player.on_platform == false then
             -- return
         -- end
@@ -75,23 +75,24 @@ function Player:create(num, img_file)
 		elseif love.keyboard.isDown(player.right) then
 			player.x = player.x + (player.mov_spd*dt)
 		end	
-	end
-	--Jumping
-	--See comment for moving (I want to make it relative to platform position)
-	function player:jump(dt)
-        if player.on_platform == false then
-            return
+		if love.keyboard.isDown(player.up) then
+			if player.on_platform == true  and player.jump_spd == 0 then
+				player.jump_spd = player.jump_hgt
+			end
         end
+		
+	end
+	--Jumping(merged in control)
+	--See comment for moving (I want to make it relative to platform position)
+	--function player:jump(dt)
+		
 
-		if player.jump_spd == 0 then 
-			player.jump_spd = player.jump_hgt
-		end
         -- more realistic physics - can't change midair?
         -- need to wait for collision and then can move again
         -- OORRRR in move can require to be on platform to go left/right
         -- also should be on platform to jump - can't jump on air
 		--[[I was thinking that it would be moving and jumping only on plat]]
-	end
+	--end
 	--[[
 	player-platform detectors
 	]]--
@@ -108,10 +109,25 @@ function Player:create(num, img_file)
 	-- end
 	
 	
+	--Controls player physics
+	function player:physics(dt)
+		if player.jump_spd ~= 0 or player.on_platform == false then
+			player.y = player.y + (player.jump_spd * dt)
+			player.jump_spd = player.jump_spd - (player.gravity * dt) 
+			
+		end
+		if player.y > player.ground then 
+			player.jump_spd = 0
+			player.y = player.ground 
+		end
+	end
+	
+	
+	
 	-- returning local variable
 	return player
 	
 end
 
-
+-- returning 'class object'
 return Player
