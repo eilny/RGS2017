@@ -45,9 +45,8 @@ function love.load()
 	
 	
 	--Stage class test--
-	stage:spawning_plat("platform.png", player1)
-	stage:spawning_plat("platform.png", player2)
-	
+	stage:spawning_plat("platform.png")
+
 	
 	
 end
@@ -113,6 +112,8 @@ function love.draw()
 	love.graphics.printf("Player1.y: "..player1.y, 900, 80, 500, center)	
 	love.graphics.printf("Player2.x: "..player2.x, 900, 95, 500, center)
 	love.graphics.printf("Player2.y: "..player2.y, 900, 110, 500, center)
+	love.graphics.printf("Player1.ground: "..player1.ground, 900, 125, 500, center)
+	love.graphics.printf("Player2.ground: "..player2.ground, 900, 140, 500, center)
 	
 	
 end
