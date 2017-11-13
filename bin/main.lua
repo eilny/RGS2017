@@ -12,10 +12,14 @@ local Stage = require "stage"
 
 -- --Variable(tables)
 --platform = {}
---player = {}
+players = {}
 stage = Stage:create()
 player1 = Player:create(1, "purple.png")
 player2 = Player:create(2, "orange.png")
+
+players[1] = player1
+players[2] = player2
+
 
 --Useful Global Variables
 screen_width = love.graphics.getWidth()
@@ -29,19 +33,7 @@ pressed = 'n/a' -- reads what key is pressed
 function love.load()
 	love.window.setTitle("GAME NAME")
 	
-	
-	-- --player stuff
-	-- player.x = platform.x + (platform.width /2)
-	-- player.y = platform.y
-	-- -- player img
-	-- player.img = love.graphics.newImage("purple.png")
-	-- --player dimensions
-	-- player.width, player.height = player.img:getDimensions()
-	-- --for physics?
-	-- player.on_platform = true
-	-- -- movement speed
-	-- player.speed = 200
-	-- player.ground = player.y
+	bg_img = love.graphics.newImage("background.jpg")
 	
 	
 	--Stage class test--
@@ -100,6 +92,7 @@ end
 
 function love.draw()
 	
+	love.graphics.draw(bg_img, 0, 0, 0, 1, 1)
 	
 	--Class drawing functions
 	stage:draw()
@@ -107,13 +100,13 @@ function love.draw()
 	player2:draw()
 	
 	--print functions to read positions and keys
-	love.graphics.printf("Pressed: "..pressed, 900, 50, 500, center)
-	love.graphics.printf("Player1.x: "..player1.x, 900, 65, 500, center)
-	love.graphics.printf("Player1.y: "..player1.y, 900, 80, 500, center)	
-	love.graphics.printf("Player2.x: "..player2.x, 900, 95, 500, center)
-	love.graphics.printf("Player2.y: "..player2.y, 900, 110, 500, center)
-	love.graphics.printf("Player1.ground: "..player1.ground, 900, 125, 500, center)
-	love.graphics.printf("Player2.ground: "..player2.ground, 900, 140, 500, center)
+	-- love.graphics.printf("Pressed: "..pressed, 900, 50, 500, center)
+	-- love.graphics.printf("Player1.x: "..player1.x, 900, 65, 500, center)
+	-- love.graphics.printf("Player1.y: "..player1.y, 900, 80, 500, center)	
+	-- love.graphics.printf("Player2.x: "..player2.x, 900, 95, 500, center)
+	-- love.graphics.printf("Player2.y: "..player2.y, 900, 110, 500, center)
+	-- love.graphics.printf("Player1.ground: "..player1.ground, 900, 125, 500, center)
+	-- love.graphics.printf("Player2.ground: "..player2.ground, 900, 140, 500, center)
 	
 	
 end

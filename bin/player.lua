@@ -46,7 +46,8 @@ function Player:create(num, img_file)
 	player.jump_hgt = -300 -- max distance from orginal takeoff platform
 	player.gravity = -500 -- individual gravity
 	
-	player.on_platform = true
+	player.on_platform = true --will be removed?
+	player.platform = nil
 	
 	--determines values for player 2
 	if player.p == 2 then
@@ -78,6 +79,7 @@ function Player:create(num, img_file)
 		if love.keyboard.isDown(player.up) then
 			if player.on_platform == true  and player.jump_spd == 0 then
 				player.jump_spd = player.jump_hgt
+				player.on_platform = false
 			end
         end
 		
