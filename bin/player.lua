@@ -78,6 +78,7 @@ function Player:create(num, img_file)
 		if love.keyboard.isDown(player.up) then
 			if player.on_platform == true  and player.jump_spd == 0 then
 				player.jump_spd = player.jump_hgt
+                player.on_platform = false
 			end
         end
 		

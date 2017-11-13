@@ -17,6 +17,10 @@ stage = Stage:create()
 player1 = Player:create(1, "purple.png")
 player2 = Player:create(2, "orange.png")
 
+players = {}
+players[1] = player1
+players[2] = player2
+
 --Useful Global Variables
 screen_width = love.graphics.getWidth()
 screen_height = love.graphics.getHeight()
@@ -95,7 +99,8 @@ function love.update(dt)
 	player2:physics(dt)
 	
 	--Collision detection
-	stage:collision(player1, player2)
+	--stage:collision(player1, player2)
+	stage:colls(players)
 end
 
 function love.draw()

@@ -35,6 +35,19 @@ function Stage:create()
 		end 
 	end
 	
+	function stage:colls(players)
+		for i, plat in ipairs(platfm) do 
+            for j, play in ipairs(players) do
+                plat:coll_player(play)
+            end
+		end
+        for i, play in ipairs(players) do
+            if (play.on_platform == false) then
+                play.ground = g_Height
+            end
+        end
+	end
+	
 	function stage:collision(player1, player2)
 		for i = 1, #platfm do 
 			platfm[i]:coll_player(player1)
