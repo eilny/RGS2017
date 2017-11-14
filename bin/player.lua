@@ -27,7 +27,7 @@ function Player:create(num, img_file)
 	
 	
 	-- MIGHT BE REMOVED
-	player.x = (g_Width / 4)   
+	player.x = (g_Width / 5)   
 	player.y = (g_Height /2) 
 	player.rot = 0 -- default
 	player.scale_x = 1
@@ -46,7 +46,7 @@ function Player:create(num, img_file)
 	player.jump_hgt = -300 -- max distance from orginal takeoff platform
 	player.gravity = -500 -- individual gravity
 	
-	player.on_platform = true --will be removed?
+	player.on_platform = false --will be removed?
 	player.platform = nil
 	
 	--determines values for player 2
@@ -56,7 +56,7 @@ function Player:create(num, img_file)
 		player.up = "i"
 		player.down = "k"
 		
-		player.x =  (g_Width)*(3/4)
+		player.x =  (g_Width)*(4/5)
 	end
 	
 	--draws player
@@ -70,18 +70,31 @@ function Player:create(num, img_file)
         -- if player.on_platform == false then
             -- return
         -- end
-
-		if love.keyboard.isDown(player.left) then
+		if love.keyboard.isDown(player.left) and player.x > 0 then
 			player.x = player.x - (player.mov_spd*dt)
-		elseif love.keyboard.isDown(player.right) then
+		elseif love.keyboard.isDown(player.right) and player.x + player.width < love.graphics.getWidth()  then
 			player.x = player.x + (player.mov_spd*dt)
 		end	
+
 		if love.keyboard.isDown(player.up) then
 			if player.on_platform == true  and player.jump_spd == 0 then
 				player.jump_spd = player.jump_hgt
 				player.on_platform = false
 			end
         end
+		
+		if player.platform ~= nil then 
+			if player.x + (player.width) >= player.platform.x and player.x + (player.width) <= player.platform.x + player.platform.width and player.y <= player.platform.y then
+				player.ground = player.platform.y
+				player.on_platform = true
+			else 
+				player.ground = love.graphics.getHeight()
+				player.on_platform = false
+				player.platform = nil
+			end
+		end
+		
+		
 		
 	end
 	--Jumping(merged in control)
@@ -95,20 +108,7 @@ function Player:create(num, img_file)
         -- also should be on platform to jump - can't jump on air
 		--[[I was thinking that it would be moving and jumping only on plat]]
 	--end
-	--[[
-	player-platform detectors
-	]]--
-	-- function player:plat_coll(platfm)
-		-- for i = 1, #platfm do
-			-- if player.x + .9*player.width >= platfm[i].x and player.x + .1*player.width <= platfm[i].x + platfm.width and player.y <= platfm[i].y  then
-				-- player.ground = platfm[i].y
-				-- player.on_platform = true
-			-- else
-				-- player.ground = love.graphics.getHeight()
-				-- player.on_platform = false
-			-- end
-		-- end
-	-- end
+
 	
 	
 	--Controls player physics

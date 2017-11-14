@@ -58,15 +58,15 @@ function Platform:create(img_file, pos_x, pos_y)
 	
 	--]]--
 	function platform:coll_player(player)
-		if player.x + (.9*player.width) >= platform.x and player.x + (.1*player.width) <= platform.x + platform.width and player.y <= platform.y then
-			player.ground = platform.y
-			player.on_platform = true
-		else
-			player.ground = love.graphics.getHeight()
-			player.platform = nil
-			player.on_platform = false
-			
+
+		if player.on_platform == false or (player.platform ~= nil and player.platform == platform) then
+			if player.x + (.9*player.width) >= platform.x and player.x + (.1*player.width) <= platform.x + platform.width and player.y <= platform.y then
+				player.ground = platform.y
+				player.on_platform = true
+				player.platform = platform 
+			end
 		end
+
 	end
 
 	--function
