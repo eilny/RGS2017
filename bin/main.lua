@@ -36,10 +36,8 @@ function love.load()
 	
 	bg_img = love.graphics.newImage("background.jpg")
 	
-	
 	--Stage class test--
 	stage:spawning_plat("platform.png", players)
-	
 	
 end
 
@@ -52,7 +50,8 @@ function love.update(dt)
 	player2:physics(dt)
 	
 	--Collision detection
-	stage:colls(players)
+	stage:colls(players, dt)
+	
 	stage:new_plat("platform.png")
 end
 
@@ -90,5 +89,4 @@ end
 --test functions
 function love.keyreleased(key) 
 	pressed = 'n/a'
-
 end

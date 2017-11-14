@@ -84,7 +84,7 @@ function Player:create(num, img_file)
         end
 		
 		if player.platform ~= nil then 
-			if player.x + (player.width) >= player.platform.x and player.x + (player.width) <= player.platform.x + player.platform.width and player.y <= player.platform.y then
+			if player.x + (player.width*.9) >= player.platform.x and player.x + (player.width*.1) <= player.platform.x + player.platform.width and player.y <= player.platform.y then
 				player.ground = player.platform.y
 				player.on_platform = true
 			else 

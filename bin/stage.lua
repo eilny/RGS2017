@@ -15,7 +15,7 @@ g_Height = love.graphics.getHeight()
 function Stage:create()
 	local stage = {}
 	stage.min_plat = 4
-	stage.max_plat = 6 
+	stage.max_plat = 10
 	
 	stage.is_full = false
 	stage.show_plat = true
@@ -33,9 +33,21 @@ function Stage:create()
 	end
 	
 	function stage:new_plat(img)
-		i = table.getn(platfm) + 1
-		platfm[i]  =  Platform:create(img, math.random(0, g_Width), math.random(0, g_Height)) 
+		i = table.getn(platfm) 
+		if i < stage.max_plat then
+			i = table.getn(platfm) + 1
+			new_x = math.random(10, (g_Width - platfm[1].width))
+			new_y = math.random(10, (g_Height - 100))
+			pic = love.graphics.newImage(img)
+			wid, hgt = pic:getDimensions()
+			while stage:no_spwn(new_x , new_y, wid, hgt) == true do
+				new_x = math.random(10, (g_Width - platfm[1].width))
+				new_y = math.random(10, (g_Height - 100))
+			end
+			platfm[i]  =  Platform:create(img, new_x, new_y) 
+		end
 	end
+	
 	
 	function stage:draw()
 		for i = 1, #platfm do
@@ -43,19 +55,23 @@ function Stage:create()
 		end 
 	end
 	
-	function stage:colls(players)
+	function stage:colls(players, dt)
 		for i, plat in ipairs(platfm) do 
             for j, play in ipairs(players) do
-				if play.platform == nil then
-					plat:coll_player(play)
+				if play.platform == nil or play.on_platform == false then
+					plat:coll_player(play, dt)
 				end
 			end
 		end
-        for i, play in ipairs(players) do
-            if (play.on_platform == false) then
-                play.ground = g_Height
-            end
-        end
+	end
+	
+	function stage:no_spwn(new_x, new_y, wid, hgt)
+		for i, plat in ipairs(platfm) do
+			if (new_x >= plat.x and new_x + wid <= plat.x + plat.width) or (new_y >= plat.y and new_y + hgt <= plat.y + plat.height) then
+				return true
+			end
+		end
+		return false
 	end
 	
 	

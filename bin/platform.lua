@@ -29,15 +29,15 @@ function Platform:create(img_file, pos_x, pos_y)
 	
 	--Mainly used for physics
 	platform.spd_x = 0 -- CAN DELETE
-	platform.spd_y = 0 -- CAN DELETE
+	platform.spd_y = 1 -- CAN DELETE
 	--]]--
 	function platform:draw()
 		love.graphics.draw(platform.img, platform.x, platform.y, platform.rotation, platform.scale_x, platform.scale_y) --Will finish parameters if needed
 	end
 	
-	function platform:drop(x_spd, y_spd, dt)
-		platform.x = platform.x + (x_spd*dt)
-		platform.y = platform.y + (y_spd*dt)
+	function platform:drop(dt)
+		platform.x = platform.x + ((platform.spd_x)*dt)
+		platform.y = platform.y + ((platform.spd_y)*dt)
 	end
 	
 	--more functions can go here
@@ -57,8 +57,7 @@ function Platform:create(img_file, pos_x, pos_y)
 	end
 	
 	--]]--
-	function platform:coll_player(player)
-
+	function platform:coll_player(player, dt)
 		if player.on_platform == false or (player.platform ~= nil and player.platform == platform) then
 			if player.x + (.9*player.width) >= platform.x and player.x + (.1*player.width) <= platform.x + platform.width and player.y <= platform.y then
 				player.ground = platform.y
@@ -66,7 +65,6 @@ function Platform:create(img_file, pos_x, pos_y)
 				player.platform = platform 
 			end
 		end
-
 	end
 
 	--function
