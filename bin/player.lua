@@ -96,10 +96,12 @@ function Player:create(num, img_file)
 				player.ground = love.graphics.getHeight()
 				player.on_platform = false
 				player.platform = nil
-				print("player's platform change "..player.p)
 			end
 		end
-		
+		if player.on_platform then
+			player.platform.dropping = true
+			player.y = player.platform.y
+		end
 		
 		
 	end

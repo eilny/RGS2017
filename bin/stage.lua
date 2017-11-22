@@ -36,13 +36,14 @@ function Stage:create()
 		i = table.getn(platfm) 
 		if i < stage.max_plat then
 			i = table.getn(platfm) + 1
+			math.randomseed( os.time() )
 			new_x = math.random(10, (g_Width - platfm[1].width))
-			new_y = math.random(10, (g_Height - 100))
+			new_y = math.random(100, (g_Height - 500))
 			pic = love.graphics.newImage(img)
 			wid, hgt = pic:getDimensions()
 			while stage:no_spwn(new_x , new_y, wid, hgt) == true do
 				new_x = math.random(10, (g_Width - platfm[1].width))
-				new_y = math.random(10, (g_Height - 100))
+				new_y = math.random(100, (g_Height - 100))
 			end
 			platfm[i]  =  Platform:create(img, new_x, new_y) 
 		end
@@ -58,19 +59,12 @@ function Stage:create()
 	function stage:colls(players, dt)
 		for i, plat in ipairs(platfm) do 
             for j, play in ipairs(players) do
-                --[[
-				if play.platform == nil or play.on_platform == false then
-					plat:coll_player(play, dt)
-				end
-                --]]
                 plat:player_collide(play, dt)
 			end
+			if plat.dropping then
+				plat:drop(dt)
+			end
 		end
-		-- Check for when the players jump?
-		-- for j, play in ipairs(players) do
-			-- if 
-			-- end
-		-- end
 	end
 	
 	function stage:no_spwn(new_x, new_y, wid, hgt)

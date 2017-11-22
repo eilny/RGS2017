@@ -53,6 +53,8 @@ function love.update(dt)
 	stage:colls(players, dt)
 	
 	stage:new_plat("platform.png")
+	
+	
 end
 
 function love.draw()

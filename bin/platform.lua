@@ -29,7 +29,8 @@ function Platform:create(img_file, pos_x, pos_y)
 	
 	--Mainly used for physics
 	platform.spd_x = 0 -- CAN DELETE
-	platform.spd_y = 1 -- CAN DELETE
+	platform.spd_y = 50 -- CAN DELETE
+	platform.dropping = false 
 	--]]--
 	function platform:draw()
 		love.graphics.draw(platform.img, platform.x, platform.y, platform.rotation, platform.scale_x, platform.scale_y) --Will finish parameters if needed
