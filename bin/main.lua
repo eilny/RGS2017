@@ -72,6 +72,16 @@ function love.draw()
 	love.graphics.printf("Player2.y: "..player2.y, 800, 110, 500, center)
 	love.graphics.printf("Player1.ground: "..player1.ground, 800, 125, 500, center)
 	love.graphics.printf("Player2.ground: "..player2.ground, 800, 140, 500, center)
+    if player1.on_platform == true then
+        love.graphics.printf("Player1.on_platform: ".."true", 800, 155, 500, center)
+    else
+        love.graphics.printf("Player1.on_platform: ".."false", 800, 155, 500, center)
+    end
+    if player2.on_platform == true then
+        love.graphics.printf("Player2.on_platform: ".."true", 800, 170, 500, center)
+    else
+        love.graphics.printf("Player2.on_platform: ".."false", 800, 170, 500, center)
+    end
 	
 	
 end

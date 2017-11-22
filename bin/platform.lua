@@ -56,8 +56,9 @@ function Platform:create(img_file, pos_x, pos_y)
 		end
 	end
 	
-	--]]--
+    --[[
 	function platform:coll_player(player, dt)
+        --not on a platform OR (player platform is not empty and is this platform)
 		if player.on_platform == false or (player.platform ~= nil and player.platform == platform) then
 			if player.x + (.9*player.width) >= platform.x and player.x + (.1*player.width) <= platform.x + platform.width and player.y <= platform.y then
 				player.ground = platform.y
@@ -65,10 +66,74 @@ function Platform:create(img_file, pos_x, pos_y)
 				player.platform = platform 
 			end
 		end
+        if platform.y < player.ground and player.y <= platform.y then 
+            player.ground = platform.y
+            player.on_platform = true
+            player.platform = platform 
+        end
 	end
+	--]]
+
+
+    --[[
+    --if player onplat or if has no plat or if player.plat ~= this plat
+    --  yes, stationary on a platform, can return
+    --if player has plat
+    --  if player plat ~= this plat
+    --      if player within x bounds
+    --          if player y < plat y
+    --              if player ground < plat y
+    --                  player ground = plat y, player onplat = true, player plat = plat
+    --else not on platform or this plat is player plat
+    --  if player within x bounds
+    --      if player y above plat y
+    --          player ground = plat y, player onplat = true, player plat = plat
+    --]]
 
 	--function
 	
+    function platform:player_collide(player, dt)
+        --[[
+        --if player.onplat
+        --  return
+        --if player.plat == this plat
+        --  return -- do we need to do anything else?
+        --if player within x bounds
+        --  if player y < plat y
+        --      if player no plat OR plat y < player ground
+        --          player gound = plat y
+        --          player plat = plat
+        --]]
+        if player.on_platform == true then
+            --no collision; they are standing on a platform
+            return
+        end
+        if player.platform ~= nil then
+            if player.platform == platform then
+                --this is player's platform: anything to do?
+                return
+            end
+            --else: not the player's platform
+            if platform.y > player.ground then
+                --player ground is above platform y
+                return
+            end
+        end
+        --either player has no platform or platform is above/equal player ground
+        if player.x + (.9*player.width) >= platform.x and player.x + (.1*player.width) <= platform.x + platform.width then
+            --within x bounds
+            if player.y <= platform.y then
+                --above/on platform
+                if player.y == platform.y then
+                    --if player y just equals plat y, we are on a plat
+                    player.on_platform = true
+                end
+                --still in midair, but can assign ground and platform
+                player.ground = platform.y
+                player.platform = platform
+            end
+        end
+    end
 	
 	
 	--return local variable

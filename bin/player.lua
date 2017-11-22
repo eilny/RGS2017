@@ -84,9 +84,13 @@ function Player:create(num, img_file)
         end
 		
 		if player.platform ~= nil then 
-			if player.x + (player.width*.9) >= player.platform.x and player.x + (player.width*.1) <= player.platform.x + player.platform.width and player.y <= player.platform.y then
-				player.ground = player.platform.y
-				player.on_platform = true
+			if player.x + (player.width*.9) >= player.platform.x and player.x + (player.width*.1) <= player.platform.x + player.platform.width then
+                if player.y <= player.platform.y then
+                    player.ground = player.platform.y
+                    if player.y == player.platform.y then
+                        player.on_platform = true
+                    end
+                end
 			else 
 				player.ground = love.graphics.getHeight()
 				player.on_platform = false

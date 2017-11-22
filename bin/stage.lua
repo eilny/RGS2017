@@ -58,9 +58,12 @@ function Stage:create()
 	function stage:colls(players, dt)
 		for i, plat in ipairs(platfm) do 
             for j, play in ipairs(players) do
+                --[[
 				if play.platform == nil or play.on_platform == false then
 					plat:coll_player(play, dt)
 				end
+                --]]
+                plat:player_collide(play, dt)
 			end
 		end
 	end
