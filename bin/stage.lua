@@ -66,6 +66,11 @@ function Stage:create()
                 plat:player_collide(play, dt)
 			end
 		end
+		-- Check for when the players jump?
+		-- for j, play in ipairs(players) do
+			-- if 
+			-- end
+		-- end
 	end
 	
 	function stage:no_spwn(new_x, new_y, wid, hgt)

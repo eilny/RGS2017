@@ -80,6 +80,7 @@ function Player:create(num, img_file)
 			if player.on_platform == true  and player.jump_spd == 0 then
 				player.jump_spd = player.jump_hgt
 				player.on_platform = false
+				player.platform = nil
 			end
         end
 		
@@ -95,6 +96,7 @@ function Player:create(num, img_file)
 				player.ground = love.graphics.getHeight()
 				player.on_platform = false
 				player.platform = nil
+				print("player's platform change "..player.p)
 			end
 		end
 		
@@ -126,6 +128,7 @@ function Player:create(num, img_file)
 			player.jump_spd = 0
 			player.y = player.ground 
 		end
+		
 	end
 	
 	

@@ -55,8 +55,7 @@ function Platform:create(img_file, pos_x, pos_y)
 			end
 		end
 	end
-	
-    --[[
+
 	function platform:coll_player(player, dt)
         --not on a platform OR (player platform is not empty and is this platform)
 		if player.on_platform == false or (player.platform ~= nil and player.platform == platform) then
@@ -72,7 +71,6 @@ function Platform:create(img_file, pos_x, pos_y)
             player.platform = platform 
         end
 	end
-	--]]
 
 
     --[[
@@ -89,6 +87,10 @@ function Platform:create(img_file, pos_x, pos_y)
     --      if player y above plat y
     --          player ground = plat y, player onplat = true, player plat = plat
     --]]
+
+	--[[
+		note: if the platforms will drop, then isn't it better if the players had the collider and didn't record a platform?
+	]]
 
 	--function
 	
