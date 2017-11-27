@@ -7,138 +7,124 @@ NOTES -> Currently simplified for testing purposes
 
 ]]--
 
-local Player = {}
-Player.__index = Player
+Class = require "hump.class"
+Player = Class{}
 
 
-function Player:create(num, img_file)
-	local player = {}
-	
-	
-	player.p = num -- determines whether to set to player 1 controls or player 2 controls. 
+function Player:init(num, img_file)	
+	self.p = num -- determines whether to set to player 1 controls or player 2 controls. 
 	
 	
 	--Default to player 1 values
 	--Player controls 
-	player.left = "a"
-	player.right = "d"
-	player.up = "w"
-	player.down = "s"
+	self.left = "a"
+	self.right = "d"
+	self.up = "w"
+	self.down = "s"
 	
 	
 	-- MIGHT BE REMOVED
-	player.x = (g_Width / 5)   
-	player.y = (g_Height /2) 
-	player.rot = 0 -- default
-	player.scale_x = 1
-	player.scale_y = 1
+	self.x = (g_Width / 5)   
+	self.y = (g_Height /2) 
+	self.rot = 0 -- default
+	self.scale_x = 1
+	self.scale_y = 1
 
-	player.img = love.graphics.newImage(img_file)
-	player.width, player.height = player.img:getDimensions()
+	self.img = love.graphics.newImage(img_file)
+	self.width, self.height = self.img:getDimensions()
 	
 	--physics values
-	player.ground = player.y
+	self.ground = self.y
     -- what the player considers as the ground 
     -- could be changed to simply be determined by the platforms/stage
 
-	player.mov_spd = 200 -- default
-	player.jump_spd = 0 -- starting jump spd (y_velocity)
-	player.jump_hgt = -300 -- max distance from orginal takeoff platform
-	player.gravity = -500 -- individual gravity
+	self.mov_spd = 200 -- default
+	self.jump_spd = 0 -- starting jump spd (y_velocity)
+	self.jump_hgt = -300 -- max distance from orginal takeoff platform
+	self.gravity = -500 -- individual gravity
 	
-	player.on_platform = false --will be removed?
-	player.platform = nil
+	self.on_platform = false --will be removed?
+	self.platform = nil
 	
 	--determines values for player 2
-	if player.p == 2 then
-		player.left = "j"
-		player.right = "l"
-		player.up = "i"
-		player.down = "k"
+	if self.p == 2 then
+		self.left = "j"
+		self.right = "l"
+		self.up = "i"
+		self.down = "k"
 		
-		player.x =  (g_Width)*(4/5)
+		self.x =  (g_Width)*(4/5)
 	end
+end
 	
-	--draws player
-	function player:draw()
-		love.graphics.draw(player.img, player.x, player.y - player.height, player.rot, player.scale_x, player.scale_y)
-	end 
+--draws player
+function Player:draw()
+	love.graphics.draw(self.img, self.x, self.y - self.height, self.rot, self.scale_x, self.scale_y)
+end 
 	
-	--checks if player is moving -- separate from jumping function in case of key conflicts == no diagonal jumping
-	--See if there is a way to make more adaptable to moving on a platform
-	function player:control(dt)
-        -- if player.on_platform == false then
-            -- return
-        -- end
-		if love.keyboard.isDown(player.left) and player.x > 0 then
-			player.x = player.x - (player.mov_spd*dt)
-		elseif love.keyboard.isDown(player.right) and player.x + player.width < love.graphics.getWidth()  then
-			player.x = player.x + (player.mov_spd*dt)
-		end	
+--checks if player is moving -- separate from jumping function in case of key conflicts == no diagonal jumping
+--See if there is a way to make more adaptable to moving on a platform
+function Player:control(dt)
+    -- if player.on_platform == false then
+        -- return
+    -- end
+	if love.keyboard.isDown(self.left) and self.x > 0 then
+		self.x = self.x - (self.mov_spd*dt)
+	elseif love.keyboard.isDown(self.right) and self.x + self.width < love.graphics.getWidth()  then
+		self.x = self.x + (self.mov_spd*dt)
+	end	
 
-		if love.keyboard.isDown(player.up) then
-			if player.on_platform == true  and player.jump_spd == 0 then
-				player.jump_spd = player.jump_hgt
-				player.on_platform = false
-				player.platform = nil
-			end
-        end
-		
-		if player.platform ~= nil then 
-			if player.x + (player.width*.9) >= player.platform.x and player.x + (player.width*.1) <= player.platform.x + player.platform.width then
-                if player.y <= player.platform.y then
-                    player.ground = player.platform.y
-                    if player.y == player.platform.y then
-                        player.on_platform = true
-                    end
+	if love.keyboard.isDown(self.up) then
+		if self.on_platform == true  and self.jump_spd == 0 then
+			self.jump_spd = self.jump_hgt
+			self.on_platform = false
+			self.platform = nil
+		end
+    end
+	
+	if self.platform ~= nil then 
+		if self.x + (self.width*.9) >= self.platform.x and self.x + (self.width*.1) <= self.platform.x + self.platform.width then
+            if self.y <= self.platform.y then
+                self.ground = self.platform.y
+                if self.y == self.platform.y then
+                    self.on_platform = true
                 end
-			else 
-				player.ground = love.graphics.getHeight()
-				player.on_platform = false
-				player.platform = nil
-			end
+            end
+		else 
+			self.ground = love.graphics.getHeight()
+			self.on_platform = false
+			self.platform = nil
 		end
-		if player.on_platform then
-			player.platform.dropping = true
-			player.y = player.platform.y
-		end
-		
+	end
+	if self.on_platform then
+		self.platform.dropping = true
+		self.y = self.platform.y
+	end
+end
+--Jumping(merged in control)
+--See comment for moving (I want to make it relative to platform position)
+--function player:jump(dt)
+	
+
+    -- more realistic physics - can't change midair?
+    -- need to wait for collision and then can move again
+    -- OORRRR in move can require to be on platform to go left/right
+    -- also should be on platform to jump - can't jump on air
+	--[[I was thinking that it would be moving and jumping only on plat]]
+--end
+
+
+
+--Controls player physics
+function Player:physics(dt)
+	if self.jump_spd ~= 0 or self.on_platform == false then
+		self.y = self.y + (self.jump_spd * dt)
+		self.jump_spd = self.jump_spd - (self.gravity * dt) 
 		
 	end
-	--Jumping(merged in control)
-	--See comment for moving (I want to make it relative to platform position)
-	--function player:jump(dt)
-		
-
-        -- more realistic physics - can't change midair?
-        -- need to wait for collision and then can move again
-        -- OORRRR in move can require to be on platform to go left/right
-        -- also should be on platform to jump - can't jump on air
-		--[[I was thinking that it would be moving and jumping only on plat]]
-	--end
-
-	
-	
-	--Controls player physics
-	function player:physics(dt)
-		if player.jump_spd ~= 0 or player.on_platform == false then
-			player.y = player.y + (player.jump_spd * dt)
-			player.jump_spd = player.jump_spd - (player.gravity * dt) 
-			
-		end
-		if player.y > player.ground then 
-			player.jump_spd = 0
-			player.y = player.ground 
-		end
-		
+	if self.y > self.ground then 
+		self.jump_spd = 0
+		self.y = self.ground 
 	end
-	
-	
-	
-	-- returning local variable
-	return player
-	
 end
 
--- returning 'class object'
-return Player

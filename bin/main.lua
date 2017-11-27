@@ -7,14 +7,14 @@ File: Main--callback functions
 
 --imported files
 
-local Player = require "player"
-local Stage = require "stage"
+require "player"
+require "stage"
 
 -- --Variable(tables)
 --platform = {}
-stage = Stage:create()
-player1 = Player:create(1, "purple.png")
-player2 = Player:create(2, "orange.png")
+stage = Stage()
+player1 = Player(1, "purple.png")
+player2 = Player(2, "orange.png")
 
 
 players = {}
