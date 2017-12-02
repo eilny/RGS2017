@@ -104,6 +104,7 @@ function Player:create(num, img_file)
 		end
 		
 		
+		
 	end
 	--Jumping(merged in control)
 	--See comment for moving (I want to make it relative to platform position)
@@ -124,13 +125,11 @@ function Player:create(num, img_file)
 		if player.jump_spd ~= 0 or player.on_platform == false then
 			player.y = player.y + (player.jump_spd * dt)
 			player.jump_spd = player.jump_spd - (player.gravity * dt) 
-			
 		end
 		if player.y > player.ground then 
 			player.jump_spd = 0
 			player.y = player.ground 
 		end
-		
 	end
 	
 	

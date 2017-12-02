@@ -13,8 +13,8 @@ local Stage = require "stage"
 -- --Variable(tables)
 --platform = {}
 stage = Stage:create()
-player1 = Player:create(1, "purple.png")
-player2 = Player:create(2, "orange.png")
+player1 = Player:create(1, "twin_guy.png")
+player2 = Player:create(2, "twin_girl.png")
 
 
 players = {}
@@ -67,24 +67,33 @@ function love.draw()
 	player2:draw()
 	
 	-- --print functions to read positions and keys
-	-- love.graphics.printf("Pressed: "..pressed, 800, 50, 500, center)
-	-- love.graphics.printf("Player1.x: "..player1.x, 800, 65, 500, center)
-	-- love.graphics.printf("Player1.y: "..player1.y, 800, 80, 500, center)	
-	-- love.graphics.printf("Player2.x: "..player2.x, 800, 95, 500, center)
-	-- love.graphics.printf("Player2.y: "..player2.y, 800, 110, 500, center)
-	-- love.graphics.printf("Player1.ground: "..player1.ground, 800, 125, 500, center)
-	-- love.graphics.printf("Player2.ground: "..player2.ground, 800, 140, 500, center)
-    -- if player1.on_platform == true then
-        -- love.graphics.printf("Player1.on_platform: ".."true", 800, 155, 500, center)
-    -- else
-        -- love.graphics.printf("Player1.on_platform: ".."false", 800, 155, 500, center)
-    -- end
-    -- if player2.on_platform == true then
-        -- love.graphics.printf("Player2.on_platform: ".."true", 800, 170, 500, center)
-    -- else
-        -- love.graphics.printf("Player2.on_platform: ".."false", 800, 170, 500, center)
-    -- end
-	
+	love.graphics.printf("Pressed: "..pressed, 800, 50, 500, center)
+	love.graphics.printf("Player1.x: "..player1.x, 800, 65, 500, center)
+	love.graphics.printf("Player1.y: "..player1.y, 800, 80, 500, center)	
+	love.graphics.printf("Player2.x: "..player2.x, 800, 95, 500, center)
+	love.graphics.printf("Player2.y: "..player2.y, 800, 110, 500, center)
+	love.graphics.printf("Player1.jump_spd: "..player1.jump_spd, 800, 125, 500, center)
+	love.graphics.printf("Player2.jump_spd: "..player2.jump_spd, 800, 140, 500, center)
+    if player1.on_platform == true then
+        love.graphics.printf("Player1.on_platform: ".."true", 800, 155, 500, center)
+    else
+        love.graphics.printf("Player1.on_platform: ".."false", 800, 155, 500, center)
+    end
+    if player2.on_platform == true then
+        love.graphics.printf("Player2.on_platform: ".."true", 800, 170, 500, center)
+    else
+        love.graphics.printf("Player2.on_platform: ".."false", 800, 170, 500, center)
+    end
+	if player1.platform == nil then
+        love.graphics.printf("Player1.platform: ".."not_set", 800, 195, 500, center)
+    else
+        love.graphics.printf("Player1.platform: ".."set", 800, 195, 500, center)
+    end
+    if player2.platform == nil then
+        love.graphics.printf("Player2.platform: ".."not_set", 800, 210, 500, center)
+    else
+        love.graphics.printf("Player2.platform: ".."set", 800, 210, 500, center)
+    end
 	
 end
 

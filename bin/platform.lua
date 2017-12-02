@@ -60,7 +60,7 @@ function Platform:create(img_file, pos_x, pos_y)
 	function platform:coll_player(player, dt)
         --not on a platform OR (player platform is not empty and is this platform)
 		if player.on_platform == false or (player.platform ~= nil and player.platform == platform) then
-			if player.x + (.9*player.width) >= platform.x and player.x + (.1*player.width) <= platform.x + platform.width and player.y <= platform.y then
+			if player.x + (.9*player.width) >= platform.x and player.x + (.1*player.width) <= platform.x + platform.width and player.y <= platform.y and player.y >= platform.y - 10 then
 				player.ground = platform.y
 				player.on_platform = true
 				player.platform = platform 
@@ -71,12 +71,8 @@ function Platform:create(img_file, pos_x, pos_y)
             player.on_platform = true
             player.platform = platform 
         end
-		if platform.dropping == true then
-			if (player.y - 5 >= platform.y) and (player.y <= platform.y - 5) then
-				player.on_platform = true
-				player.y = platform.y
-			end
-		end
+		
+		
 	end
 
 

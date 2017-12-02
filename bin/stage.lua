@@ -70,7 +70,8 @@ function Stage:create()
 			--if platform falls off
 			if plat.y == g_Height then
 				
-			end 
+			end
+			
 		end
 	end
 	
