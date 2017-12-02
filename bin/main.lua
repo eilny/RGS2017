@@ -34,7 +34,7 @@ pressed = 'n/a' -- reads what key is pressed
 function love.load()
 	love.window.setTitle("GAME NAME")
 	
-	bg_img = love.graphics.newImage("background.jpg")
+	bg_img = love.graphics.newImage("background.png")
 	
 	--Stage class test--
 	stage:spawning_plat("platform.png", players)
@@ -66,24 +66,24 @@ function love.draw()
 	player1:draw()
 	player2:draw()
 	
-	--print functions to read positions and keys
-	love.graphics.printf("Pressed: "..pressed, 800, 50, 500, center)
-	love.graphics.printf("Player1.x: "..player1.x, 800, 65, 500, center)
-	love.graphics.printf("Player1.y: "..player1.y, 800, 80, 500, center)	
-	love.graphics.printf("Player2.x: "..player2.x, 800, 95, 500, center)
-	love.graphics.printf("Player2.y: "..player2.y, 800, 110, 500, center)
-	love.graphics.printf("Player1.ground: "..player1.ground, 800, 125, 500, center)
-	love.graphics.printf("Player2.ground: "..player2.ground, 800, 140, 500, center)
-    if player1.on_platform == true then
-        love.graphics.printf("Player1.on_platform: ".."true", 800, 155, 500, center)
-    else
-        love.graphics.printf("Player1.on_platform: ".."false", 800, 155, 500, center)
-    end
-    if player2.on_platform == true then
-        love.graphics.printf("Player2.on_platform: ".."true", 800, 170, 500, center)
-    else
-        love.graphics.printf("Player2.on_platform: ".."false", 800, 170, 500, center)
-    end
+	-- --print functions to read positions and keys
+	-- love.graphics.printf("Pressed: "..pressed, 800, 50, 500, center)
+	-- love.graphics.printf("Player1.x: "..player1.x, 800, 65, 500, center)
+	-- love.graphics.printf("Player1.y: "..player1.y, 800, 80, 500, center)	
+	-- love.graphics.printf("Player2.x: "..player2.x, 800, 95, 500, center)
+	-- love.graphics.printf("Player2.y: "..player2.y, 800, 110, 500, center)
+	-- love.graphics.printf("Player1.ground: "..player1.ground, 800, 125, 500, center)
+	-- love.graphics.printf("Player2.ground: "..player2.ground, 800, 140, 500, center)
+    -- if player1.on_platform == true then
+        -- love.graphics.printf("Player1.on_platform: ".."true", 800, 155, 500, center)
+    -- else
+        -- love.graphics.printf("Player1.on_platform: ".."false", 800, 155, 500, center)
+    -- end
+    -- if player2.on_platform == true then
+        -- love.graphics.printf("Player2.on_platform: ".."true", 800, 170, 500, center)
+    -- else
+        -- love.graphics.printf("Player2.on_platform: ".."false", 800, 170, 500, center)
+    -- end
 	
 	
 end

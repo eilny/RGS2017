@@ -15,8 +15,9 @@ g_Height = love.graphics.getHeight()
 function Stage:create()
 	local stage = {}
 	stage.min_plat = 4
-	stage.max_plat = 10
+	stage.max_plat = 25
 	
+	--# of platforms = max
 	stage.is_full = false
 	stage.show_plat = true
 	
@@ -61,15 +62,21 @@ function Stage:create()
             for j, play in ipairs(players) do
                 plat:player_collide(play, dt)
 			end
-			if plat.dropping then
+			--drop the platform
+			--note: players cannot jump once they hit a moving platform...
+			if plat.dropping and plat.y <= g_Height then
 				plat:drop(dt)
 			end
+			--if platform falls off
+			if plat.y == g_Height then
+				
+			end 
 		end
 	end
 	
 	function stage:no_spwn(new_x, new_y, wid, hgt)
 		for i, plat in ipairs(platfm) do
-			if (new_x >= plat.x and new_x + wid <= plat.x + plat.width) or (new_y >= plat.y and new_y + hgt <= plat.y + plat.height) then
+			if (new_x >= plat.x and new_x + wid <= plat.x + plat.width) and (new_y >= plat.y and new_y + hgt <= plat.y + plat.height) then
 				return true
 			end
 		end

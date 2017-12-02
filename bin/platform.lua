@@ -71,6 +71,12 @@ function Platform:create(img_file, pos_x, pos_y)
             player.on_platform = true
             player.platform = platform 
         end
+		if platform.dropping == true then
+			if (player.y - 5 >= platform.y) and (player.y <= platform.y - 5) then
+				player.on_platform = true
+				player.y = platform.y
+			end
+		end
 	end
 
 
