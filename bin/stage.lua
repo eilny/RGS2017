@@ -15,7 +15,7 @@ g_Height = love.graphics.getHeight()
 function Stage:create()
 	local stage = {}
 	stage.min_plat = 4
-	stage.max_plat = 25
+	stage.max_plat = 30
 	
 	--# of platforms = max
 	stage.is_full = false

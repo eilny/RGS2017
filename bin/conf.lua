@@ -6,7 +6,8 @@ File: CONFIGURATIONS -- imports console for debugging purposes
 ]]--
 function love.conf(t)
 	t.console = true
-	t.window.width = 1024
-	t.window.height = 640
+	t.window.width = 1450
+	t.window.height = 750
 	t.window.fullscreen = true;
+	t.window.display = 2
 end

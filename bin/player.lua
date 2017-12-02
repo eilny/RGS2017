@@ -77,7 +77,7 @@ function Player:create(num, img_file)
 		end	
 
 		if love.keyboard.isDown(player.up) then
-			if player.on_platform == true  and player.jump_spd == 0 then
+			if player.on_platform == true  or player.jump_spd == 0 then
 				player.jump_spd = player.jump_hgt
 				player.on_platform = false
 				player.platform = nil
@@ -88,7 +88,7 @@ function Player:create(num, img_file)
 			if player.x + (player.width*.9) >= player.platform.x and player.x + (player.width*.1) <= player.platform.x + player.platform.width then
                 if player.y <= player.platform.y then
                     player.ground = player.platform.y
-                    if player.y == player.platform.y then
+                    if player.y >= player.platform.y then
                         player.on_platform = true
                     end
                 end
